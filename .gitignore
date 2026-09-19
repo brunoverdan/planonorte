@@ -1,0 +1,17 @@
+# Backend
+api/vendor/
+api/node_modules/
+api/storage/*.key
+api/.env
+api/.phpunit.result.cache
+api/storage/framework/cache/data/*
+!api/storage/framework/cache/data/.gitignore
+
+# Frontend
+app/node_modules/
+app/dist/
+app/.vite/
+
+# Geral
+*.log
+.DS_Store
