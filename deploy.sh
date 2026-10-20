@@ -9,7 +9,7 @@ set -e
 
 BRANCH="${1:-main}"
 SITE_PATH="/var/www/planonorte"
-LOG_FILE="/var/log/deploy-planonorte.log"
+LOG_FILE="/var/www/planonorte/deploy.log"
 
 log() { echo "$@" | tee -a $LOG_FILE; }
 
