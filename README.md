@@ -4,7 +4,7 @@ Plataforma de **streaming de conteúdo cultural brasileiro** ("Netflix da Cultur
 Preservar, divulgar e democratizar o acesso a conteúdos históricos, artísticos, educacionais e culturais com experiência moderna.
 
 > Domínio (produção): `planonorte.planeventus.com.br`
-> Repositório: `github.com/brunoverdan/...` (a definir)
+> Repositório: `github.com/brunoverdan/planonorte`
 
 ---
 
