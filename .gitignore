@@ -1,0 +1,40 @@
+# Backend
+api/vendor/
+api/node_modules/
+api/storage/*.key
+api/.env
+api/.phpunit.result.cache
+api/storage/framework/cache/data/*
+!api/storage/framework/cache/data/.gitignore
+
+# Frontend
+app/node_modules/
+app/dist/
+app/.vite/
+
+# Geral
+*.log
+.DS_Store
+
+# Build / deps
+node_modules/
+dist/
+vendor/
+*.tsbuildinfo
+
+# Env e segredos
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+
+# Laravel
+api/storage/framework/views/*
+api/storage/framework/sessions/*
+api/storage/logs/*
+api/bootstrap/cache/*
+!api/storage/framework/views/.gitignore
+!api/storage/framework/sessions/.gitignore
+!api/storage/logs/.gitignore
+!api/bootstrap/cache/.gitignore

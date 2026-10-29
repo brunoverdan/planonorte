@@ -1,0 +1,87 @@
+@import "tailwindcss";
+
+/*
+  Plan Norte — Design System (v2)
+  Derivado DIRETAMENTE da logo enviada:
+    · fundo: preto quente quase puro  #070604
+    · marca: off-white neutro         #f7f6f6
+    · acento: âmbar dourado           #f0b429 (cultura / "norte" / calor humano)
+  Base monocromática escura + acento dourado único. Sem vermelho, sem serifada.
+*/
+
+@theme {
+  /* Base escura — agora ancorada no preto quente real da logo */
+  --color-norte-950: #070604;
+  --color-norte-900: #0f0e0c;
+  --color-norte-850: #171612;
+  --color-norte-800: #201e1a;
+  --color-norte-700: #2e2b26;
+  --color-norte-600: #453f38;
+
+  /* Texto — off-white da marca */
+  --color-areia-100: #f7f6f6;
+  --color-areia-200: #e9e7e5;
+  --color-areia-300: #cfccc8;
+  --color-areia-400: #a5a19c;
+
+  /* Acento (âmbar/dourado cultural) */
+  --color-ambar-400: #f0b429;
+  --color-ambar-500: #e09b1a;
+  --color-ambar-600: #c07d0e;
+
+  /* Secundário (verde-mata, referência "Norte"/natureza) */
+  --color-mata-500: #2f7d5b;
+  --color-mata-600: #256447;
+
+  --font-display: "Archivo", "Inter", system-ui, sans-serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+
+  --radius-xl2: 1.25rem;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-norte-900);
+  color: var(--color-areia-100);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Scrollbar discreta */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--color-norte-900); }
+::-webkit-scrollbar-thumb { background: var(--color-norte-700); border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-norte-600); }
+
+/* Utilitários de layout */
+.container-norte {
+  width: 100%;
+  max-width: 1400px;
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+@media (min-width: 768px) {
+  .container-norte { padding-inline: 2rem; }
+}
+
+/* Carrossel horizontal */
+.carousel-row {
+  display: flex;
+  gap: 0.75rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 0.5rem;
+  scrollbar-width: none;
+}
+.carousel-row::-webkit-scrollbar { display: none; }
+.carousel-row > * { scroll-snap-align: start; flex: 0 0 auto; }
+
+/* Foco acessível (RNF-04) */
+:focus-visible {
+  outline: 2px solid var(--color-ambar-400);
+  outline-offset: 2px;
+}
