@@ -31,9 +31,6 @@ class ResetPasswordNotification extends ResetPassword
                 'url' => $url,
                 'user' => $notifiable,
             ])
-            ->text('emails.reset-password-text', [
-                'url' => $url,
-                'user' => $notifiable,
-            ]);
+            ->line('Se você não pediu a redefinição, ignore este e-mail — sua senha continua a mesma.');
     }
 }
