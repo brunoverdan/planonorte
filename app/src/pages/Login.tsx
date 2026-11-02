@@ -96,6 +96,15 @@ export default function Login() {
           <Field label="E-mail" type="email" value={email} onChange={setEmail} autoComplete="email" />
           <Field label="Senha" type="password" value={password} onChange={setPassword} autoComplete="current-password" />
 
+          <div className="-mt-4 text-right">
+            <Link
+              to="/recuperar-senha"
+              className="text-[0.75rem] text-neve-500 underline-offset-4 transition-colors hover:text-white hover:underline"
+            >
+              Esqueci minha senha
+            </Link>
+          </div>
+
           <button type="submit" disabled={loading} className="btn-invert w-full disabled:opacity-50">
             {loading ? 'Entrando…' : 'Entrar'}
           </button>

@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\CategoryController;
 use App\Http\Controllers\Api\V1\EventController;
 use App\Http\Controllers\Api\V1\LocationController;
+use App\Http\Controllers\Api\V1\PasswordResetController;
 use App\Http\Controllers\Api\V1\ProducerController;
 use App\Http\Controllers\Api\V1\SearchController;
 use App\Http\Controllers\Api\V1\UserContentController;
@@ -32,6 +33,8 @@ Route::prefix('v1')->group(function () {
     // ---------- Auth ----------
     Route::post('/auth/register', [AuthController::class, 'register']);
     Route::post('/auth/login', [AuthController::class, 'login']);
+    Route::post('/auth/forgot-password', [PasswordResetController::class, 'sendResetLink']);
+    Route::post('/auth/reset-password', [PasswordResetController::class, 'reset']);
 
     // ---------- Autenticado ----------
     Route::middleware('auth:sanctum')->group(function () {

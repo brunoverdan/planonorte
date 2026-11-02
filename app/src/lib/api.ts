@@ -114,6 +114,10 @@ export const Api = {
   login: (email: string, password: string) => api.post<{ user: unknown; token: string }>('/auth/login', { email, password }).then((r) => r.data),
   register: (name: string, email: string, password: string, password_confirmation: string) =>
     api.post<{ user: unknown; token: string }>('/auth/register', { name, email, password, password_confirmation }).then((r) => r.data),
+  forgotPassword: (email: string) =>
+    api.post<{ message: string }>('/auth/forgot-password', { email }).then((r) => r.data),
+  resetPassword: (token: string, email: string, password: string, password_confirmation: string) =>
+    api.post<{ message: string }>('/auth/reset-password', { token, email, password, password_confirmation }).then((r) => r.data),
   me: () => api.get('/me').then((r) => r.data),
   logout: () => api.post('/auth/logout').then((r) => r.data),
 

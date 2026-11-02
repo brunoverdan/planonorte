@@ -117,6 +117,17 @@ export default function Register() {
           {error && (
             <p role="alert" className="border-l-2 border-white/40 pl-3 text-[0.8125rem] leading-relaxed text-neve-300">
               {error}
+              {error.includes('já está cadastrado') && (
+                <>
+                  {' '}
+                  <Link
+                    to="/recuperar-senha"
+                    className="border-b border-white/30 pb-0.5 text-white transition-colors hover:border-white"
+                  >
+                    Recuperar senha
+                  </Link>
+                </>
+              )}
             </p>
           )}
 

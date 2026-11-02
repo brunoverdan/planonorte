@@ -30,6 +30,18 @@ function translate(field: string, raw: string): string {
       return 'A confirmação de senha não confere.'
     case 'validation.min.string':
       return 'A senha precisa ter no mínimo 8 caracteres.'
+    case 'validation.password.mixed':
+      return 'A senha precisa conter letras e números.'
+    case 'validation.password.letters':
+      return 'A senha precisa conter pelo menos uma letra.'
+    case 'validation.password.numbers':
+      return 'A senha precisa conter pelo menos um número.'
+    case 'validation.password.symbols':
+      return 'A senha precisa conter pelo menos um símbolo.'
+    case 'validation.password.uncompromised':
+      return 'Esta senha apareceu em vazamentos conhecidos. Escolha outra.'
+    case 'validation.custom.password.required':
+      return 'Informe a senha.'
     case 'validation.max.string':
       return `O campo ${f} é longo demais.`
     default:
