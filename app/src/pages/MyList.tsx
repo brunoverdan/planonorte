@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import { Navigate } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
+import { EmptyState, PageHeader } from '../components/PageHeader'
 import { VideoCard } from '../components/VideoCard'
 import { useAuth } from '../context/AuthContext'
 import { Api, type Video } from '../lib/api'
@@ -18,17 +19,28 @@ export default function MyList() {
   if (!user) return <Navigate to="/entrar" replace />
 
   return (
-    <main className="container-norte py-8">
-      <h1 className="mb-6 font-display text-2xl font-bold text-areia-100">Minha Lista</h1>
-      {loading ? (
-        <p className="text-areia-400">Carregando…</p>
-      ) : videos.length === 0 ? (
-        <p className="text-areia-400">Sua lista está vazia. Explore o catálogo e salve seus favoritos.</p>
-      ) : (
-        <div className="flex flex-wrap gap-4">
-          {videos.map((v) => <VideoCard key={v.id} video={v} />)}
-        </div>
-      )}
+    <main>
+      <PageHeader
+        eyebrow="Sua coleção"
+        title="Minha lista"
+        description="As obras que você guardou para ver com calma."
+      />
+
+      <div className="container-norte py-20">
+        {loading ? (
+          <p className="eyebrow !text-neve-600">Carregando…</p>
+        ) : videos.length === 0 ? (
+          <EmptyState
+            title="Sua lista está vazia"
+            description="Explore o acervo e salve o que quiser rever depois."
+            action={<Link to="/explorar" className="btn-ghost mt-2">Explorar acervo</Link>}
+          />
+        ) : (
+          <div className="flex flex-wrap gap-x-5 gap-y-10">
+            {videos.map((v) => <VideoCard key={v.id} video={v} />)}
+          </div>
+        )}
+      </div>
     </main>
   )
 }

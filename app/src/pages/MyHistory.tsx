@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import { Navigate } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
+import { EmptyState, PageHeader } from '../components/PageHeader'
 import { VideoCard } from '../components/VideoCard'
 import { useAuth } from '../context/AuthContext'
 import { Api, type Video } from '../lib/api'
@@ -23,17 +24,28 @@ export default function MyHistory() {
   if (!user) return <Navigate to="/entrar" replace />
 
   return (
-    <main className="container-norte py-8">
-      <h1 className="mb-6 font-display text-2xl font-bold text-areia-100">Histórico</h1>
-      {loading ? (
-        <p className="text-areia-400">Carregando…</p>
-      ) : items.length === 0 ? (
-        <p className="text-areia-400">Você ainda não assistiu nada.</p>
-      ) : (
-        <div className="flex flex-wrap gap-4">
-          {items.map((h) => <VideoCard key={h.video.id} video={h.video} />)}
-        </div>
-      )}
+    <main>
+      <PageHeader
+        eyebrow="Sua trajetória"
+        title="Histórico"
+        description="Tudo o que você já assistiu, em ordem de retorno."
+      />
+
+      <div className="container-norte py-20">
+        {loading ? (
+          <p className="eyebrow !text-neve-600">Carregando…</p>
+        ) : items.length === 0 ? (
+          <EmptyState
+            title="Nada por aqui ainda"
+            description="Comece a assistir e seu percurso aparecerá aqui."
+            action={<Link to="/explorar" className="btn-ghost mt-2">Explorar acervo</Link>}
+          />
+        ) : (
+          <div className="flex flex-wrap gap-x-5 gap-y-10">
+            {items.map((h) => <VideoCard key={h.video.id} video={h.video} />)}
+          </div>
+        )}
+      </div>
     </main>
   )
 }

@@ -1,6 +1,43 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { CompassRose } from '../components/CompassRose'
 import { useAuth } from '../context/AuthContext'
+import { apiErrorMessage } from '../lib/errors'
+
+/** Campo de formulário com estética editorial (linha inferior, sem caixa) */
+function Field({
+  label,
+  type = 'text',
+  value,
+  onChange,
+  autoComplete,
+  required = true,
+}: {
+  label: string
+  type?: string
+  value: string
+  onChange: (v: string) => void
+  autoComplete?: string
+  required?: boolean
+}) {
+  return (
+    <label className="group block">
+      <span className="text-[0.5625rem] uppercase tracking-[0.24em] text-neve-500 transition-colors group-focus-within:text-neve-300">
+        {label}
+      </span>
+      <input
+        type={type}
+        required={required}
+        value={value}
+        autoComplete={autoComplete}
+        onChange={(e) => onChange(e.target.value)}
+        className="mt-2.5 w-full border-0 border-b border-white/15 bg-transparent pb-2.5 text-[0.9375rem] text-white transition-colors duration-300 placeholder:text-neve-600 focus:border-white focus:outline-none"
+      />
+    </label>
+  )
+}
+
+export { Field }
 
 export default function Login() {
   const { login } = useAuth()
@@ -13,52 +50,70 @@ export default function Login() {
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault()
     setError('')
+    if (!email.trim() || !password) {
+      setError('Preencha e-mail e senha.')
+      return
+    }
     setLoading(true)
     try {
       await login(email, password)
       navigate('/')
-    } catch {
-      setError('E-mail ou senha inválidos.')
+    } catch (err) {
+      setError(apiErrorMessage(err, 'E-mail ou senha inválidos.'))
     } finally {
       setLoading(false)
     }
   }
 
   return (
-    <main className="container-norte flex min-h-[70vh] items-center justify-center py-10">
-      <form onSubmit={onSubmit} className="w-full max-w-sm rounded-2xl border border-norte-800 bg-norte-850 p-6">
-        <h1 className="font-display text-2xl font-bold text-areia-100">Entrar</h1>
-        <p className="mt-1 text-sm text-areia-400">Acesse sua conta PlanoNorte.</p>
+    <main className="relative flex min-h-screen items-center justify-center overflow-hidden px-5 pt-[72px]">
+      <div className="absolute inset-0 grid-bg opacity-30" aria-hidden="true" />
+      <div
+        className="pointer-events-none absolute -right-40 top-1/2 hidden -translate-y-1/2 lg:block"
+        aria-hidden="true"
+      >
+        <CompassRose size={560} strokeWidth={0.5} className="animate-slow-spin text-white opacity-[0.06]" />
+      </div>
 
-        {error ? <p className="mt-4 rounded-lg bg-red-500/10 px-3 py-2 text-sm text-red-400">{error}</p> : null}
+      <div className="relative z-10 w-full max-w-sm py-20">
+        <div className="flex items-center gap-3.5">
+          <CompassRose size={14} className="text-neve-600" />
+          <p className="eyebrow">Acesso</p>
+        </div>
 
-        <label className="mt-4 block text-sm text-areia-300">
-          E-mail
-          <input
-            type="email" required value={email} onChange={(e) => setEmail(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-norte-700 bg-norte-850 px-3 py-2 text-areia-100 focus:border-ambar-500 focus:outline-none"
-          />
-        </label>
-
-        <label className="mt-4 block text-sm text-areia-300">
-          Senha
-          <input
-            type="password" required value={password} onChange={(e) => setPassword(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-norte-700 bg-norte-850 px-3 py-2 text-areia-100 focus:border-ambar-500 focus:outline-none"
-          />
-        </label>
-
-        <button
-          type="submit" disabled={loading}
-          className="mt-6 w-full rounded-lg bg-ambar-500 py-2.5 font-semibold text-norte-950 hover:bg-ambar-400 disabled:opacity-60"
-        >
-          {loading ? 'Entrando…' : 'Entrar'}
-        </button>
-
-        <p className="mt-4 text-center text-sm text-areia-400">
-          Não tem conta? <Link to="/cadastro" className="text-ambar-400 hover:underline">Criar conta</Link>
+        <h1 className="mt-6 font-display text-4xl font-light leading-tight tracking-tight text-white">
+          Entrar
+        </h1>
+        <p className="mt-3 text-sm leading-relaxed text-neve-400">
+          Acesse sua conta e continue de onde parou.
         </p>
-      </form>
+
+        <form onSubmit={onSubmit} className="mt-12 space-y-8">
+          {error && (
+            <p role="alert" className="border-l-2 border-white/40 pl-3 text-[0.8125rem] leading-relaxed text-neve-300">{error}</p>
+          )}
+
+          <Field label="E-mail" type="email" value={email} onChange={setEmail} autoComplete="email" />
+          <Field label="Senha" type="password" value={password} onChange={setPassword} autoComplete="current-password" />
+
+          <button type="submit" disabled={loading} className="btn-invert w-full disabled:opacity-50">
+            {loading ? 'Entrando…' : 'Entrar'}
+          </button>
+        </form>
+
+        <div className="mt-12 flex items-center gap-4">
+          <span className="h-px flex-1 bg-white/10" aria-hidden="true" />
+          <span className="text-[0.5625rem] uppercase tracking-[0.22em] text-neve-600">ou</span>
+          <span className="h-px flex-1 bg-white/10" aria-hidden="true" />
+        </div>
+
+        <p className="mt-8 text-center text-[0.8125rem] text-neve-400">
+          Não tem conta?{' '}
+          <Link to="/cadastro" className="border-b border-white/30 pb-0.5 text-white transition-colors hover:border-white">
+            Criar conta
+          </Link>
+        </p>
+      </div>
     </main>
   )
 }

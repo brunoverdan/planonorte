@@ -97,18 +97,32 @@ export default function Navbar() {
         </div>
       </div>
 
+      {/* Menu mobile */}
       {open && (
-        <nav className="lg:hidden border-t border-norte-800 bg-norte-950 px-4 pb-4">
+        <nav className="lg:hidden border-t border-norte-800 bg-norte-950 px-4 pb-4 flex flex-col gap-1">
           {NAV.map((item) => (
             <Link
               key={item.to}
               to={item.to}
               onClick={() => setOpen(false)}
-              className="block rounded-lg px-3 py-2 text-sm text-areia-200 hover:bg-norte-800"
+              className={`rounded-lg px-3 py-2 text-sm ${
+                location.pathname === item.to
+                  ? 'bg-norte-800 text-ambar-400'
+                  : 'text-areia-300 hover:bg-norte-800 hover:text-areia-100'
+              }`}
             >
               {item.label}
             </Link>
           ))}
+          {!user && (
+            <Link
+              to="/entrar"
+              onClick={() => setOpen(false)}
+              className="rounded-lg px-3 py-2 text-sm text-areia-300 hover:bg-norte-800 hover:text-areia-100"
+            >
+              Entrar
+            </Link>
+          )}
         </nav>
       )}
     </header>

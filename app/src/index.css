@@ -1,87 +1,292 @@
 @import "tailwindcss";
 
 /*
-  Plan Norte — Design System (v2)
-  Derivado DIRETAMENTE da logo enviada:
-    · fundo: preto quente quase puro  #070604
-    · marca: off-white neutro         #f7f6f6
-    · acento: âmbar dourado           #f0b429 (cultura / "norte" / calor humano)
-  Base monocromática escura + acento dourado único. Sem vermelho, sem serifada.
+  ═══════════════════════════════════════════════════════════════════
+  PLANO NORTE — Design System v3
+  ───────────────────────────────────────────────────────────────────
+  Identidade 100% derivada da logo oficial (wordmark PLAN NORTE).
+  A logo é MONOCROMÁTICA: off-white sobre preto profundo.
+
+  Paleta: monocromática de alto contraste.
+    · Preto profundo  #050506 / #0B0B0C
+    · Branco puro     #FFFFFF
+    · Cinzas          escala neutra pura (sem temperatura quente)
+    · Acento          o próprio branco (inversão), sem cor cromática
+
+  Tipografia:
+    · Display  — Cormorant Garamond (serifada sofisticada, títulos)
+    · Corpo    — Inter (sans limpa, textos longos)
+
+  Motivo visual: rosa dos ventos / orientação (marca d'água sutil).
+  ═══════════════════════════════════════════════════════════════════
 */
 
 @theme {
-  /* Base escura — agora ancorada no preto quente real da logo */
-  --color-norte-950: #070604;
-  --color-norte-900: #0f0e0c;
-  --color-norte-850: #171612;
-  --color-norte-800: #201e1a;
-  --color-norte-700: #2e2b26;
-  --color-norte-600: #453f38;
+  /* ── Preto profundo ─────────────────────────────────────────── */
+  --color-noir-1000: #000000;
+  --color-noir-950: #050506;
+  --color-noir-900: #0b0b0c;
+  --color-noir-850: #101012;
+  --color-noir-800: #16161a;
+  --color-noir-750: #1c1c21;
+  --color-noir-700: #232329;
+  --color-noir-600: #2e2e36;
 
-  /* Texto — off-white da marca */
-  --color-areia-100: #f7f6f6;
-  --color-areia-200: #e9e7e5;
-  --color-areia-300: #cfccc8;
-  --color-areia-400: #a5a19c;
+  /* ── Escala neutra de texto (cinzas puros, alto contraste) ──── */
+  --color-neve-0: #ffffff;
+  --color-neve-50: #fafafa;
+  --color-neve-100: #f4f4f5;
+  --color-neve-200: #e4e4e7;
+  --color-neve-300: #d4d4d8;
+  --color-neve-400: #a1a1aa;
+  --color-neve-500: #71717a;
+  --color-neve-600: #52525b;
 
-  /* Acento (âmbar/dourado cultural) */
-  --color-ambar-400: #f0b429;
-  --color-ambar-500: #e09b1a;
-  --color-ambar-600: #c07d0e;
+  /* ── Aliases de compatibilidade (código legado) ─────────────── */
+  --color-norte-950: #050506;
+  --color-norte-900: #0b0b0c;
+  --color-norte-850: #101012;
+  --color-norte-800: #16161a;
+  --color-norte-700: #232329;
+  --color-norte-600: #2e2e36;
+  --color-areia-100: #ffffff;
+  --color-areia-200: #f4f4f5;
+  --color-areia-300: #d4d4d8;
+  --color-areia-400: #a1a1aa;
+  /* acento monocromático: branco (substitui o âmbar antigo) */
+  --color-ambar-400: #ffffff;
+  --color-ambar-500: #f4f4f5;
+  --color-ambar-600: #52525b;
 
-  /* Secundário (verde-mata, referência "Norte"/natureza) */
-  --color-mata-500: #2f7d5b;
-  --color-mata-600: #256447;
-
-  --font-display: "Archivo", "Inter", system-ui, sans-serif;
-  --font-sans: "Inter", system-ui, sans-serif;
+  /* ── Tipografia ─────────────────────────────────────────────── */
+  --font-display: "Cormorant Garamond", "Playfair Display", Georgia, serif;
+  --font-sans: "Inter", "Plus Jakarta Sans", system-ui, sans-serif;
 
   --radius-xl2: 1.25rem;
+
+  /* Sombras sutis claras (destaque de card no escuro) */
+  --shadow-lift: 0 1px 0 0 rgb(255 255 255 / 0.05) inset;
+  --shadow-glow: 0 0 0 1px rgb(255 255 255 / 0.06), 0 24px 60px -20px rgb(0 0 0 / 0.9);
 }
 
 :root {
   color-scheme: dark;
+  --hairline: rgb(255 255 255 / 0.08);
+  --hairline-strong: rgb(255 255 255 / 0.16);
+}
+
+* {
+  border-color: var(--hairline);
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
-  background-color: var(--color-norte-900);
-  color: var(--color-areia-100);
+  background-color: var(--color-noir-950);
+  color: var(--color-neve-100);
   font-family: var(--font-sans);
+  font-feature-settings: "kern" 1, "liga" 1, "cv11" 1;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
-/* Scrollbar discreta */
-::-webkit-scrollbar { width: 10px; height: 10px; }
-::-webkit-scrollbar-track { background: var(--color-norte-900); }
-::-webkit-scrollbar-thumb { background: var(--color-norte-700); border-radius: 9999px; }
-::-webkit-scrollbar-thumb:hover { background: var(--color-norte-600); }
+/* ── Tipografia display ─────────────────────────────────────────── */
+.font-display,
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  letter-spacing: -0.015em;
+}
 
-/* Utilitários de layout */
+/* Título de hero: serifada grande, branco puro, tracking apertado */
+.text-hero {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(2.75rem, 7vw, 6.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+}
+
+/* Sobrelinha / eyebrow — caixa alta, tracking largo, cinza */
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  color: var(--color-neve-400);
+}
+
+/* ── Scrollbar discreta ─────────────────────────────────────────── */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--color-noir-700);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--color-noir-600); }
+
+/* ── Layout ─────────────────────────────────────────────────────── */
 .container-norte {
   width: 100%;
-  max-width: 1400px;
+  max-width: 1360px;
   margin-inline: auto;
-  padding-inline: 1rem;
+  padding-inline: 1.25rem;
 }
 @media (min-width: 768px) {
-  .container-norte { padding-inline: 2rem; }
+  .container-norte { padding-inline: 2.5rem; }
+}
+@media (min-width: 1280px) {
+  .container-norte { padding-inline: 4rem; }
 }
 
-/* Carrossel horizontal */
+/* Container estreito para texto longo (medida confortável) */
+.container-prose {
+  max-width: 68ch;
+  margin-inline: auto;
+}
+
+/* ── Divisores elegantes ────────────────────────────────────────── */
+.hairline {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgb(255 255 255 / 0.14),
+    transparent
+  );
+  border: 0;
+}
+
+/* ── Cards ──────────────────────────────────────────────────────── */
+.card-norte {
+  position: relative;
+  background-color: var(--color-noir-900);
+  border: 1px solid var(--hairline);
+  border-radius: 0.75rem;
+  transition: border-color 400ms cubic-bezier(0.2, 0, 0, 1),
+              background-color 400ms cubic-bezier(0.2, 0, 0, 1),
+              box-shadow 400ms cubic-bezier(0.2, 0, 0, 1);
+}
+.card-norte:hover {
+  border-color: var(--hairline-strong);
+  background-color: var(--color-noir-850);
+  box-shadow: 0 1px 0 0 rgb(255 255 255 / 0.06) inset,
+              0 20px 50px -24px rgb(0 0 0 / 1);
+}
+
+/* ── Botões ─────────────────────────────────────────────────────── */
+/* Primário: branco puro com texto preto (inversão) */
+.btn-invert {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: #ffffff;
+  color: var(--color-noir-1000);
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0.875rem 1.75rem;
+  border-radius: 2px;
+  transition: background-color 300ms ease, transform 200ms ease;
+}
+.btn-invert:hover {
+  background-color: var(--color-neve-200);
+}
+.btn-invert:active { transform: translateY(1px); }
+
+/* Secundário: fantasma com hairline */
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: transparent;
+  color: var(--color-neve-100);
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0.875rem 1.75rem;
+  border: 1px solid var(--hairline-strong);
+  border-radius: 2px;
+  transition: border-color 300ms ease, background-color 300ms ease;
+}
+.btn-ghost:hover {
+  border-color: rgb(255 255 255 / 0.32);
+  background-color: rgb(255 255 255 / 0.03);
+}
+
+/* ── Marca d'água: rosa dos ventos ──────────────────────────────── */
+.compass-watermark {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='0.75'%3E%3Ccircle cx='200' cy='200' r='196'/%3E%3Ccircle cx='200' cy='200' r='150'/%3E%3Ccircle cx='200' cy='200' r='96'/%3E%3Ccircle cx='200' cy='200' r='44'/%3E%3Cpath d='M200 4v392M4 200h392M62 62l276 276M338 62L62 338'/%3E%3Cpath d='M200 104l14 82-14 14-14-14z'/%3E%3C/g%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+/* Grade sutil de fundo */
+.grid-bg {
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.025) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.025) 1px, transparent 1px);
+  background-size: 96px 96px;
+}
+
+/* ── Carrossel horizontal ───────────────────────────────────────── */
 .carousel-row {
   display: flex;
-  gap: 0.75rem;
+  gap: 1rem;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  padding-bottom: 0.5rem;
+  padding-bottom: 0.75rem;
   scrollbar-width: none;
 }
 .carousel-row::-webkit-scrollbar { display: none; }
 .carousel-row > * { scroll-snap-align: start; flex: 0 0 auto; }
 
-/* Foco acessível (RNF-04) */
+/* ── Foco acessível ─────────────────────────────────────────────── */
 :focus-visible {
-  outline: 2px solid var(--color-ambar-400);
-  outline-offset: 2px;
+  outline: 1px solid #ffffff;
+  outline-offset: 3px;
+}
+
+/* ── Animações ──────────────────────────────────────────────────── */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up {
+  animation: fade-up 900ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes slow-spin {
+  to { transform: rotate(360deg); }
+}
+.animate-slow-spin {
+  animation: slow-spin 240s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html { scroll-behavior: auto; }
 }
